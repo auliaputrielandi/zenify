@@ -208,10 +208,22 @@ $conn->close();
         }
         ?>
         <br>
-        <div class="garis">
-            <center><h4>Saran</h4></center>
-            <img src="../../assets/images/tes.png" alt="" class="img-hasil">
-        </div>
+        <div class="garis"></div>
+        <br>
+            <center>
+                <h4>Saran</h4>
+            </center>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-md-6 d-flex justify-content-center align-items-center">
+                    <img src="../../assets/images/tes.png" alt="" class="img-hasil"
+                        style="max-width: 100%; height: auto; width: 300px;">
+                </div>
+                <div class="col-md-6">
+                    <p>Saran disini.</p>
+                </div>
+            </div>
 
 
     </div>

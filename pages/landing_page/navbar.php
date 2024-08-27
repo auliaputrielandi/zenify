@@ -1,6 +1,6 @@
 <?php
 require __DIR__ . '/../../database/db.php';
-session_start(); // Pastikan session_start() aktif
+session_start(); 
 
 $is_logged_in = isset($_SESSION['id_user']);
 $username = '';

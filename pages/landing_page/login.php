@@ -2,6 +2,11 @@
 require '../../database/db.php';
 session_start();
 
+// Cek apakah ada halaman sebelumnya yang diakses dan bukan halaman login
+if (isset($_SERVER['HTTP_REFERER']) && !strstr($_SERVER['HTTP_REFERER'], 'login.php')) {
+    $_SESSION['RedirectKe'] = $_SERVER['HTTP_REFERER'];
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -18,7 +23,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Verifikasi password
         if (password_verify($password, $hashed_password)) {
             $_SESSION['id_user'] = $id;
-            header("Location: ../../index.php");
+
+            // Redirect ke halaman sebelumnya atau halaman default
+            $URL = isset($_SESSION['RedirectKe']) ? $_SESSION['RedirectKe'] : '../wlb/tes-wlb.php';
+            unset($_SESSION['RedirectKe']); // Hapus setelah digunakan
+            header('Location: ' . $URL);
             exit();
         } else {
             echo "<script>
@@ -46,7 +55,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zenify</title>
     <link rel="stylesheet" href="../../assets/css/login.css">
-    
 </head>
 
 <body>

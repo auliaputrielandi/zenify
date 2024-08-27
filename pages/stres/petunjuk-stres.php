@@ -26,7 +26,7 @@
         <br>
         <p class="limited-width">
             Tes tingkat depresi, kecemasan, dan stres adalah alat yang berguna untuk mengukur kondisi emosional
-            seseorang. Tes ini menggunakan DASS-21(Depression, Anxiety, Stress Scale -21), yaitu instrumen laporan diri
+            seseorang. Tes ini menggunakan DASS-21(Depression, Anxiety, Stress Scale-21), yaitu instrumen laporan diri
             yang mengukur kecemasan, depresi, dan
             stres. DASS-21 telah diuji validitas dan reliabilitasnya di berbagai negara. Dengan melakukan tes ini, Anda
             dapat mengambil

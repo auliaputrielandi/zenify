@@ -110,26 +110,23 @@ $conn->close();
         <p>Dengan presentase <?php echo $involvement_percentage ?>%, aspek menunjukan</p>
         <br>
 
-        <div class="garis">
+        <div class="garis"></div>
+        <br>
             <center>
                 <h4>Saran</h4>
             </center>
+            <br>
+            <br>
             <div class="row">
                 <div class="col-md-6 d-flex justify-content-center align-items-center">
                     <img src="../../assets/images/tes.png" alt="" class="img-hasil"
-                        style="max-width: 100%; height: auto; width: 300px;">
+                        style="max-width: 100%; height: auto; width: 350px;">
                 </div>
                 <div class="col-md-6">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum
-                        vestibulum. Cras venenatis euismod malesuada.</p>
-                    <p>Fusce convallis, mauris imperdiet gravida bibendum, nisl turpis suscipit mauris, sed convallis
-                        sapien nunc et ligula.</p>
-                    <p>Sed accumsan magna est, et consequat sem volutpat ut.</p>
-                </div>.gi
+                    <p>Saran disini.</p>
+                </div>
             </div>
-        </div>
-
-
+        
 
     </div>
 
@@ -192,7 +189,7 @@ $conn->close();
                             align: 'center',
                             font: {
                                 weight: 'bold',
-                                size: 11
+                                size: 10.5
                             }
                         }
                     }

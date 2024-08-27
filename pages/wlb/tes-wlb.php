@@ -6,6 +6,10 @@ if (!isset($_SESSION['id_user'])) {
     exit();
 }
 
+// // Redirect ke laman tes-wlb saat sudah berhasil login
+// $URL =isset($_SESSION['RedirectKe']) ? $_SESSION['RedirectKe']: '../tes-wlb.php';
+// header('location:'.$URL.'');
+
 include '../../database/db.php';
 
 // Cek apakah data POST sudah ada
@@ -16,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $involvement = intval($_POST['involvement-balance']);
     $id_user = $_SESSION['id_user'];
 
-    // Periksa apakah sudah ada catatan untuk pengguna ini
+    // Periksa apakah sudah ada riwayat tes untuk pengguna ini
     $query = "SELECT id_wlb FROM wlb WHERE id_user = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $id_user);
@@ -24,13 +28,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        // Update catatan yang ada
+        // Update hasil tes yang ada
         $query = "UPDATE wlb SET `satisfaction-balance` = ?, `time-balance` = ?, `involvement-balance` = ? WHERE id_user = ?";
         $stmt = $conn->prepare($query);
         $stmt->bind_param("iiii", $satisfaction, $time, $involvement, $id_user);
         $stmt->execute();
     } else {
-        // Insert catatan baru
+        // Insert hasil tes baru
         $query = "INSERT INTO wlb (id_user, `satisfaction-balance`, `time-balance`, `involvement-balance`) VALUES (?, ?, ?, ?)";
         $stmt = $conn->prepare($query);
         $stmt->bind_param("iiii", $id_user, $satisfaction, $time, $involvement);
