@@ -1,0 +1,56 @@
+body {
+  font-family: "Malgun Gothic", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-image: url("../images/hasil1.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.container h1 {
+  color: #fff;
+  font-size: 3.3rem;
+  font-weight: bold;
+}
+
+.container p {
+  color: #fff;
+  font-size: 1.3rem;
+  line-height: 1.5;
+}
+
+.container-isi {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #fffafa;
+  padding: 2rem;
+  border-radius: 30px;
+}
+
+.container-isi h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.bottom-image {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#resultChart {
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+}
+.img-hasil {
+  width: 40%;
+  height: auto;
+}
+.garis {
+  border-top: #d0434d;
+}

@@ -1,0 +1,50 @@
+body {
+  font-family: "Malgun Gothic", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #d0424d;
+  background-size: cover;
+}
+
+.signup-container {
+  text-align: center;
+  background-color: #fff;
+  padding: 70px 60px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-size: 20px;
+  width: 400px;
+}
+
+.signup-container h2 {
+  margin-top: 0;
+}
+
+.signup-container input {
+  width: calc(100% - 20px);
+  padding: 15px;
+  margin-bottom: -7px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: 17px;
+}
+
+.signup-container button {
+  padding: 15px 30px;
+  background-color: #d0424d;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 17px;
+  margin-top: 10px;
+}
+
+.signup-container button:hover {
+  background-color: #f85460;
+}

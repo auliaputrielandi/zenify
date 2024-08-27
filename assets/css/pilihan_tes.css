@@ -1,0 +1,127 @@
+body {
+  font-family: "Malgun Gothic", sans-serif;
+  margin: 0;
+  background-image: url("../images/beranda2.jpg");
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  position: relative;
+}
+
+.hero-section {
+  margin-top: 50px;
+  text-align: left;
+}
+
+.hero-section h2 {
+  color: #000;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.hero-section p {
+  color: #333;
+  font-size: 1.125rem;
+  margin-bottom: 40px;
+}
+
+.card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 100%;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+}
+
+.card-body {
+  padding: 1rem;
+  text-align: center;
+}
+
+.card-title {
+  font-size: 25px;
+  font-weight: bold;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.card-text-container {
+  max-width: 90%; 
+  margin: 0 auto; 
+}
+
+.card-text {
+  font-size: 14px;
+  margin-top: 12px;
+  text-align: center;
+}
+
+.btn-custom {
+  background-color: #e74c3c !important;
+  color: #fff !important;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  display: block;
+  margin: -10px auto 0;
+  width: 95%;
+  transition: background-color 0.3s ease;
+}
+
+.btn-custom:hover {
+  background-color: #c0392b !important;
+}
+
+.section-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.section-subtitle {
+  font-size: 18px;
+  margin-bottom: 30px;
+  color: #666;
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+.content-wrapper {
+  background-color: #f8f8f8;
+  padding: 60px 0;
+}
+
+@media (max-width: 768px) {
+  .hero-section h2 {
+    font-size: 2rem;
+  }
+
+  .hero-section p {
+    font-size: 1rem;
+  }
+
+  .content-wrapper {
+    padding: 30px 0;
+  }
+
+  .card {
+    margin-bottom: 30px;
+  }
+}

@@ -1,0 +1,72 @@
+body {
+  font-family: "Malgun Gothic", sans-serif;
+  margin: 0;
+  background-image: url("../images/bpetunjuk.png");
+  background-size: cover;
+  position: relative;
+}
+
+.hero-section {
+  margin-top: 50px;
+}
+
+.hero-section h1 {
+  color: #000;
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.hero-section p {
+  color: #333;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.instructions-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 40px;
+}
+
+.instructions-list {
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.btn-custom {
+  background-color: #e74c3c !important;
+  width: 150px;
+  height: 40px;
+  color: #fff !important;
+  margin-top: 25px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+.img-fluid {
+  max-width: 50% !important;
+  height: auto !important;
+}
+
+.content-wrapper {
+  background-color: #f8f8f8;
+  padding: 60px 0;
+}
+
+.limited-width {
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: justify;
+}
+
+@media (max-width: 768px) {
+  .hero-section h1,
+  .hero-section p {
+    text-align: center;
+  }
+
+  .content-wrapper {
+    padding: 30px 0;
+  }
+}
