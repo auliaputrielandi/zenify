@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $conn->close();
 
     // Redirect ke halaman hasil setelah menyimpan
-    header("Location: hasil_tes.php");
+    header("Location: hasil-wlb.php");
     exit();
 }
 ?>
