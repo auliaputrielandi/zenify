@@ -339,7 +339,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             const options = answerOptions.children;
             for (let option of options) {
                 option.classList.remove("selected");
-                option.classList.add("answered");
+                // option.classList.add("answered");
             }
             element.classList.add("selected");
 

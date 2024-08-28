@@ -174,7 +174,7 @@ $conn->close();
         // keterangan kecemasan
         if ($kategoriKecemasan == "Normal") {
             echo "<h4>Kecemasan normal</h4>";
-            echo "<p>Perasaan cemas bisa muncul kapan saja dalam kehidupan sehari-hari. Pada tingkat ini, gejala cemas seperti gelisah, ketidaknyamanan, ketidaktenangan, dan perubahan emosional adalah hal yang normal dan dapat terjadi pada siapa saja. Meskipun disebut normal, rasa cemas pada tingkatan tertentu dapat menjadi tanda adanya masalah serius, seperti gangguan kecemasan.</p>";
+            echo "<p>Perasaan cemas bisa muncul kapan saja dalam kehidupan sehari-hari. Pada tingkat ini, gejala cemas seperti gelisah, ketidaknyamanan, ketidaktenangan, dan perubahan emosional adalah hal yang normal dan dapat terjadi pada siapa saja.</p>";
         } elseif ($kategoriKecemasan == "Ringan") {
             echo "<h4>Kecemasan ringan</h4>";
             echo "<p>Pada tingkat ini, seseorang mungkin mengalami ketegangan dan perasaan tidak nyaman, tetapi masih dapat mengatasi cemas dengan baik.</p>";

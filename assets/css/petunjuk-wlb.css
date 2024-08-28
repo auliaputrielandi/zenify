@@ -70,9 +70,7 @@ body {
 
 .limited-width {
   max-width: 1100px;
-  /* Sesuaikan lebar maksimum sesuai kebutuhan */
   margin: 0 auto;
-  /* Memberikan margin otomatis agar teks berada di tengah */
   text-align: justify;
 }
 

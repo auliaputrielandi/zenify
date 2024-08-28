@@ -3,7 +3,10 @@ require '../../database/db.php';
 session_start();
 
 // Cek apakah ada halaman sebelumnya yang diakses dan bukan halaman login
-if (isset($_SERVER['HTTP_REFERER']) && !strstr($_SERVER['HTTP_REFERER'], 'login.php')) {
+if (isset($_SERVER['HTTP_REFERER']) && 
+    !strstr($_SERVER['HTTP_REFERER'], 'login.php') && 
+    !strstr($_SERVER['HTTP_REFERER'], 'signup.php')) {
+    
     $_SESSION['RedirectKe'] = $_SERVER['HTTP_REFERER'];
 }
 
@@ -68,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <button type="submit" name="login">Login</button>
         </form>
         <p style="font-size: 16px;">Belum punya akun? <span class="signup-link"
-                onclick="location.href='signup.php'">Signup</span></p>
+                onclick="location.href='signup.php'">Register</span></p>
     </div>
 </body>
 
