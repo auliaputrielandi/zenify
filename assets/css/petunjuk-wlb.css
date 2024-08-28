@@ -6,6 +6,20 @@ body {
   position: relative;
 }
 
+.navbar-brand {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.nav-link {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.btn-danger {
+  font-size: 18px;
+}
+
 .hero-section {
   margin-top: 50px;
 }
@@ -45,8 +59,8 @@ body {
 }
 
 .img-fluid {
-  max-width: 50% !important;
-  height: auto !important;
+  max-width: 90%;
+  height: auto;
 }
 
 .content-wrapper {
@@ -56,7 +70,9 @@ body {
 
 .limited-width {
   max-width: 1100px;
+  /* Sesuaikan lebar maksimum sesuai kebutuhan */
   margin: 0 auto;
+  /* Memberikan margin otomatis agar teks berada di tengah */
   text-align: justify;
 }
 

@@ -4,6 +4,12 @@ body {
   background-color: #d0424d;
   background-size: cover;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .login-container {
@@ -41,6 +47,7 @@ body {
   transition: background-color 0.3s;
   font-size: 17px;
   margin-top: 10px;
+  width: calc(100% - 20px);
 }
 
 .login-container button:hover {
@@ -52,4 +59,33 @@ body {
   color: #0070c0;
   text-decoration: underline;
   cursor: pointer;
+}
+
+/* Responsif untuk layar kecil */
+@media (max-width: 480px) {
+  .login-container {
+    padding: 20px 15px;
+    width: 100%;
+    max-width: 280px; /* Lebar maksimum lebih kecil */
+    margin: 50px auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .login-container h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+  }
+
+  .login-container input,
+  .login-container button {
+    padding: 10px;
+    font-size: 15px;
+    margin-bottom: 15px;
+  }
+
+  .signup-link {
+    display: block;
+    margin-top: 15px;
+    font-size: 14px;
+  }
 }

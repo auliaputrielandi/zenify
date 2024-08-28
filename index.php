@@ -23,7 +23,6 @@
                     seperti tes keseimbangan kerja dan kehidupan, tingkat stres, burnout, dan masih banyak lagi. 
                     Temukan wawasan berharga untuk meningkatkan kesejahteraan Anda di tempat kerja.
                 </p>
-                <a href="pages/landing_page/logout.php">logout</a>
                 <a class="btn btn-danger mt-3" href="pages/landing_page/pilihan_tes.php">Try Now</a>
             </div>
             <div class="col-md-6 text-center">

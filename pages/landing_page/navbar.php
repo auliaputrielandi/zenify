@@ -1,6 +1,6 @@
 <?php
 require __DIR__ . '/../../database/db.php';
-session_start(); 
+session_start();
 
 $is_logged_in = isset($_SESSION['id_user']);
 $username = '';
@@ -30,21 +30,64 @@ if ($is_logged_in) {
             border-bottom: 1px solid #ddd;
             padding: 1rem;
         }
-
         .navbar-brand {
             color: #E33F3F;
             font-weight: bold;
-            font-size: 24px;
+            font-size: 1.5rem;
         }
-
         .nav-item .nav-link {
             color: #E33F3F;
-            font-size: 18px;
+            font-size: 1rem;
             font-weight: bold;
         }
-
         .btn-danger {
-            font-size: 18px;
+            font-size: 1rem;
+        }
+        @media (max-width: 576px) {
+            .navbar-brand {
+                font-size: 1.25rem;
+            }
+            .nav-item .nav-link,
+            .btn-danger {
+                font-size: 0.875rem;
+            }
+        }
+        .navbar-nav .nav-item {
+            display: flex;
+            align-items: center;
+        }
+        .modal-content {
+            border-radius: 15px;
+        }
+        .modal-header {
+            border-bottom: 1px solid #ddd;
+        }
+        .modal-title {
+            font-weight: bold;
+            color: #E33F3F;
+        }
+        .modal-body {
+            font-size: 1.1rem;
+            color: #333;
+        }
+        .modal-footer {
+            border-top: 1px solid #ddd;
+        }
+        .btn-danger {
+            background-color: #E33F3F;
+            border-color: #E33F3F;
+        }
+        .btn-danger:hover {
+            background-color: #d12e2e;
+            border-color: #d12e2e;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
         }
     </style>
 </head>
@@ -60,8 +103,13 @@ if ($is_logged_in) {
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <?php if ($is_logged_in): ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="profil.php">Hi <?php echo htmlspecialchars($username); ?></a>
+                        <li class="nav-item d-flex align-items-center">
+                            <a class="nav-link me-2" href="profil.php">Hi <?php echo htmlspecialchars($username); ?></a>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                data-bs-target="#logoutModal">
+                                Logout
+                            </button>
                         </li>
                     <?php else: ?>
                         <li class="nav-item">
@@ -73,9 +121,25 @@ if ($is_logged_in) {
         </div>
     </nav>
 
+    <!-- Logout Modal -->
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="logoutModalLabel">Apakah yakin ingin Logout</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <a class="btn btn-danger" href="../landing_page/logout.php">Logout</a>
+                    <!-- <a href="pages/landing_page/logout.php" class="btn btn-danger">Logout</a> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Bootstrap 5 JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 
-<?php $conn->close(); // Close koneksi database ?>
