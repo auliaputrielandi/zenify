@@ -133,6 +133,7 @@ $conn->close();
     <!-- Image Below Container -->
     <div class="bottom-image">
         <img src="../../assets/images/hasil2.jpg" alt="2" class="img-fluid">
+        
     </div>
 
     <!-- Bootstrap 5 JavaScript -->
