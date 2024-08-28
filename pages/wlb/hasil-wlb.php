@@ -120,7 +120,7 @@ $conn->close();
             <div class="row">
                 <div class="col-md-6 d-flex justify-content-center align-items-center">
                     <img src="../../assets/images/tes.png" alt="" class="img-hasil"
-                        style="max-width: 100%; height: auto; width: 350px;">
+                        style="max-width: 80%; height: auto; width: 350px;">
                 </div>
                 <div class="col-md-6">
                     <p>Saran disini.</p>

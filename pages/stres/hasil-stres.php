@@ -194,14 +194,14 @@ $conn->close();
             echo "<h4>Stres normal</h4>";
             echo "<p>Stres normal adalah keadaan ketika seseorang merasa tertekan dalam batas wajar. Ini adalah reaksi alami terhadap situasi tertentu, seperti tantangan atau perubahan dalam hidup. Stres normal tidak merusak aspek fisiologis dan umumnya dialami oleh setiap orang, misalnya lupa, ketiduran, dikritik, atau kemacetan lalu lintas.</p>";
         } elseif ($kategoriStres == "Ringan") {
-            echo "<h4>Stres ringanl</h4>";
-            echo "<p>Stres ringan juga tidak merusak aspek fisiologis dan biasanya dirasakan oleh banyak orang. Contohnya termasuk situasi sehari-hari seperti kecilnya masalah atau ketidaknyamanan, seperti lupa membawa kunci atau terlambat ke pertemuan.</p>";
+            echo "<h4>Stres ringan</h4>";
+            echo "<p>Stres ringan adalah stres yang tidak merusak aspek fisiologis. Stres ringan umumnya dirasakan oleh setiap orang misalnya lupa, ketiduran, dikritik, dan kemacetan. Stres ringan sering dialami pada kehidupan sehari-hari dan kondisi ini dapat membantu seseorang untuk waspada. Stres ringan tidak akan menimbulkan penyakit kecuali jika terjadi berkepanjangan.</p>";
         } elseif ($kategoriStres == "Sedang") {
             echo "<h4>Stres sedang</h4>";
-            echo "<p>Stres sedang memiliki dampak yang lebih signifikan pada individu. Gejalanya meliputi perasaan gelisah, ketegangan, dan mungkin gangguan tidur. Situasi yang menyebabkan stres sedang bisa lebih kompleks, seperti masalah pekerjaan atau hubungan.</p>";
+            echo "<p> stres sedang yaitu situasi yang tidak terselesaikan dengan rekan, keluarga yang sakit, atau ketidakhadiran yang lama dari anggota keluarga. Gejala stres sedang yaitu sakit perut, mules, otot-otot terasa tegang, perasaan tegang, gangguan tidur, dan badan terasa ringan.</p>";
         } elseif ($kategoriStres == "Berat") {
             echo "<h4>Stres berat</h4>";
-            echo "<p>Stres berat dapat memengaruhi kesejahteraan fisik dan mental. Gejalanya meliputi kecemasan yang intens, gangguan tidur, dan perubahan perilaku. Stres berat dapat disebabkan oleh peristiwa traumatis atau tekanan yang berkepanjangan, seperti kehilangan orang yang dicintai atau masalah keuangan yang serius.</p>";
+            echo "<p>Stres berat umumnya terjadi ketika seseorang mendapatkan tekanan yang berlebihan. Hal ini bisa dipicu oleh berbagai faktor, seperti masalah keluarga, kehilangan orang terkasih, beban pekerjaan, atau menderita penyakit kronis tertentu. Secara umum, stres berat dapat menimbulkan gejala tertentu, seperti sulit tidur, mudah marah, kelelahan, perubahan nafsu makan, mudah sakit, sulit berkonsentrasi, peningkatan detak jantung, berkeringat berlebihan.</p>";
         } elseif ($kategoriStres == "Sangat Berat") {
             echo "<h4>Stres sangat berat</h4>";
             echo "<p>Stres sangat berat adalah tingkat stres yang paling merusak. Ini dapat menyebabkan gangguan jiwa dan masalah fisik kronis. Gejalanya meliputi depresi berat, gangguan tidur yang parah, dan ketidakmampuan untuk berfungsi secara normal. Stres sangat berat mungkin terjadi akibat peristiwa traumatis yang luar biasa atau tekanan yang berkepanjangan.</p>";
@@ -210,20 +210,20 @@ $conn->close();
         <br>
         <div class="garis"></div>
         <br>
-            <center>
-                <h4>Saran</h4>
-            </center>
-            <br>
-            <br>
-            <div class="row">
-                <div class="col-md-6 d-flex justify-content-center align-items-center">
-                    <img src="../../assets/images/tes.png" alt="" class="img-hasil"
-                        style="max-width: 100%; height: auto; width: 300px;">
-                </div>
-                <div class="col-md-6">
-                    <p>Saran disini.</p>
-                </div>
+        <center>
+            <h4>Saran</h4>
+        </center>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-md-6 d-flex justify-content-center align-items-center">
+                <img src="../../assets/images/tes.png" alt="" class="img-hasil"
+                    style="max-width: 80%; height: auto; width: 300px;">
             </div>
+            <div class="col-md-6">
+                <p>Saran disini.</p>
+            </div>
+        </div>
 
 
     </div>
