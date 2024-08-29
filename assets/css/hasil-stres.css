@@ -6,14 +6,15 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  max-height: 120vh;
+  max-height: 250vh;
   position: relative;
   overflow-x: hidden;
 }
 
 .container {
+  max-width: 100%;
+  padding: 2rem;
   text-align: center;
-  padding: 1rem;
 }
 
 .container h1 {
@@ -27,27 +28,25 @@ body {
 .container p {
   color: #fff;
   font-size: 1rem;
-  line-height: 1.5;
-  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
   text-align: left;
 }
 
 .container-isi {
   max-width: 90%;
-  width: 100%;
   margin: 0 auto;
   background-color: #fffafa;
   padding: 2rem;
-  border-radius: 20px ;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .container-isi h2 {
-  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
   margin-bottom: 1.5rem;
   color: #333;
-  font-size: 2rem;
-  font-weight: bold;
 }
 
 .table-container {
@@ -78,17 +77,18 @@ td {
 }
 
 .img-hasil {
-  width: 80%;
+  width: 60%;
   height: auto;
-  margin: 0 auto;
-  display: block;
-  
+  max-width: 500px;
+  margin: 1.5rem auto;
 }
 
 .garis {
   border-top: 2px solid #d0434d;
   margin: 2rem 0;
 }
+
+
 
 @media (min-width: 768px) {
   .container h1 {

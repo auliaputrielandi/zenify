@@ -28,7 +28,7 @@ body {
 .container p {
   color: #fff;
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: 1.6;
   margin-bottom: 2rem;
   text-align: left;
 }
@@ -37,35 +37,35 @@ body {
   max-width: 90%;
   margin: 0 auto;
   background-color: #fffafa;
-  padding: 1.5rem;
+  padding: 2rem;
   border-radius: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .container-isi h2 {
   font-size: 1.8rem;
   font-weight: bold;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   color: #333;
 }
 
 .bottom-image {
   text-align: center;
-  margin-top: 1.5rem;
+  margin-top: 2rem;
 }
 
 #resultChart {
   width: 80%;
-  max-width: 300px;
+  max-width: 350px;
   height: auto;
-  margin: 1rem auto;
+  margin: 1.5rem auto;
 }
 
 .img-hasil {
   width: 60%;
   height: auto;
   max-width: 500px;
-  margin: 0 auto;
+  margin: 1.5rem auto;
 }
 
 .garis {
@@ -84,7 +84,7 @@ body {
 
   .container-isi {
     max-width: 80%;
-    padding: 2rem;
+    padding: 2.5rem;
   }
 
   .container-isi h2 {
@@ -111,7 +111,7 @@ body {
 
   .container-isi {
     max-width: 70%;
-    padding: 2.5rem;
+    padding: 3rem;
   }
 
   .container-isi h2 {

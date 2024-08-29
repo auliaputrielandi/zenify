@@ -6,6 +6,60 @@ if (!isset($_SESSION['id_user'])) {
     exit();
 }
 
+function getGeminiRecommendations($kategoriDepresi, $kategoriKecemasan, $kategoriStres)
+{
+    $api_key = 'AIzaSyDxlbLcuzMcIqVeIFWk0qfd0PmDqGxmnvw'; // Ganti dengan API key Gemini Anda
+    $url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' . $api_key;
+
+    $prompt = "Berdasarkan hasil tes DASS-21:
+    Depresi: {$kategoriDepresi}
+    Kecemasan: {$kategoriKecemasan}
+    Stres: {$kategoriStres}
+
+    Berikan 6 saran singkat untuk mengatasi Depresi, Kecemasan, dan Stres sesuai dengan hasil tingkat stres tadi. Setiap saran maksimal 15 kata dan harus spesifik, actionable, dan berdasarkan data yang valid.Berikan dengan kata-kata yang mudah dipahami oleh user.
+
+    Format jawaban:
+    1. [Saran 1]
+    2. [Saran 2]
+    3. [Saran 3]
+    4. [Saran 4]
+    5. [Saran 5]
+    6. [Saran 6]";
+
+    $data = [
+        'contents' => [
+            [
+                'parts' => [
+                    ['text' => $prompt]
+                ]
+            ]
+        ],
+        'generationConfig' => [
+            'temperature' => 0.7,
+            'maxOutputTokens' => 150,
+        ]
+    ];
+
+    $options = [
+        'http' => [
+            'method' => 'POST',
+            'header' => 'Content-Type: application/json',
+            'content' => json_encode($data)
+        ]
+    ];
+
+    $context = stream_context_create($options);
+    $response = file_get_contents($url, false, $context);
+
+    if ($response === FALSE) {
+        return "Maaf, terjadi kesalahan saat menghasilkan rekomendasi.";
+    }
+
+    $result = json_decode($response, true);
+    return $result['candidates'][0]['content']['parts'][0]['text'];
+}
+
+
 include '../../database/db.php';
 
 // Mengambil data stres berdasarkan id_user
@@ -69,6 +123,8 @@ if ($result->num_rows > 0) {
     $kategoriDepresi = getKategoriDepresi($depresi);
     $kategoriKecemasan = getKategoriKecemasan($kecemasan);
     $kategoriStres = getKategoriStres($stres);
+    $recommendations = getGeminiRecommendations($kategoriDepresi, $kategoriKecemasan, $kategoriStres);
+
 } else {
     $depresi = $kecemasan = $stres = "Data tidak ditemukan";
     $kategoriDepresi = $kategoriKecemasan = $kategoriStres = "-";
@@ -216,14 +272,34 @@ $conn->close();
         <br>
         <br>
         <div class="row">
+            <!-- Kolom untuk gambar -->
             <div class="col-md-6 d-flex justify-content-center align-items-center">
-                <img src="../../assets/images/tes.png" alt="" class="img-hasil"
-                    style="max-width: 80%; height: auto; width: 300px;">
+                <img src="../../assets/images/tes.png" alt="Hasil Tes" class="img-hasil"
+                    style="max-width: 100%; height: auto; width: 100%; max-width: 350px;">
             </div>
+
+            <!-- Kolom untuk rekomendasi -->
             <div class="col-md-6">
-                <p>Saran disini.</p>
+                <div class="recommendations-container" style="padding: 15px;">
+                    <?php
+                    $recommendations_array = explode("\n", $recommendations);
+                    echo "<ul style='list-style-type: disc; padding-left: 20px;'>";
+                    foreach ($recommendations_array as $recommendation) {
+                        $recommendation = trim($recommendation);
+                        if (!empty($recommendation) && strpos($recommendation, '.') !== false) {
+                            $recommendation = substr($recommendation, strpos($recommendation, '.') + 1);
+                            echo "<li>" . htmlspecialchars(trim($recommendation)) . "</li>";
+                        }
+                    }
+                    echo "</ul>";
+                    ?>
+                </div>
+                <p>Semoga saran di atas membantu Anda. Penting untuk diingat bahwa tes ini hanya sebagai panduan awal. Jika Anda mengalami gejala yang
+                mengganggu, jangan ragu untuk berkonsultasi dengan profesional kesehatan mental!!😊😊</p>
             </div>
         </div>
+
+    </div>
 
 
     </div>

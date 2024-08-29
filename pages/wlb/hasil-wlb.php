@@ -5,6 +5,254 @@ if (!isset($_SESSION['id_user'])) {
     header("Location: login.php");
     exit();
 }
+// Fetch the nickname based on the work-life balance scores
+// $nickname = getGeminiRecommendations($satisfaction_percentage, $time_percentage, $involvement_percentage);
+
+function getGeminiNickname($satisfaction_percentage, $time_percentage, $involvement_percentage)
+{
+    $api_key = 'AIzaSyDxlbLcuzMcIqVeIFWk0qfd0PmDqGxmnvw'; // Ganti dengan API key Gemini Anda
+    $url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' . $api_key;
+
+    $prompt = "Berdasarkan hasil tes work-life balance:
+    Satisfaction: {$satisfaction_percentage}%
+    Time: {$time_percentage}%
+    Involvement: {$involvement_percentage}%
+
+    Berikan 1 julukan yang positif, sesuai, bagus, dan unik.
+
+    Format dan contoh jawaban:
+    Si Pengatur Waktu Andal
+    Si Puas dan Berdedikasi
+    Si Produktif dan Berperan Aktif
+    Si Tepat Waktu dan Fokus
+    Si Efisien dan Berkontribusi Penuh
+    Si Harmonis dan Komitmen
+    Si Bahagia dalam Memberikan Kontribusi
+    Si Seimbang dalam Peran
+    Si Produktif";
+
+
+    $data = [
+        'contents' => [
+            [
+                'parts' => [
+                    ['text' => $prompt]
+                ]
+            ]
+        ],
+        'generationConfig' => [
+            'temperature' => 0.7,
+            'maxOutputTokens' => 150,
+        ]
+    ];
+
+    $options = [
+        'http' => [
+            'method' => 'POST',
+            'header' => 'Content-Type: application/json',
+            'content' => json_encode($data)
+        ]
+    ];
+
+    $context = stream_context_create($options);
+    $response = file_get_contents($url, false, $context);
+
+    if ($response === FALSE) {
+        return "Maaf, terjadi kesalahan saat menghasilkan rekomendasi.";
+    }
+
+    $result = json_decode($response, true);
+    return $result['candidates'][0]['content']['parts'][0]['text'];
+}
+function getGemini($satisfaction_percentage, $time_percentage, $involvement_percentage)
+{
+    $api_key = 'AIzaSyDxlbLcuzMcIqVeIFWk0qfd0PmDqGxmnvw'; // Ganti dengan API key Gemini Anda
+    $url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' . $api_key;
+
+    $prompt = "Berdasarkan hasil tes work-life balance:
+    Satisfaction: {$satisfaction_percentage}%
+    Time: {$time_percentage}%
+    Involvement: {$involvement_percentage}%
+
+    Berikan 1 julukan yang positif, sesuai, bagus, dan unik.
+
+    Format dan contoh jawaban:
+    Si Pengatur Waktu Andal
+    Si Puas dan Berdedikasi
+    Si Produktif dan Berperan Aktif
+    Si Tepat Waktu dan Fokus
+    Si Efisien dan Berkontribusi Penuh
+    Si Harmonis dan Komitmen
+    Si Bahagia dalam Memberikan Kontribusi
+    Si Seimbang dalam Peran
+    Si Produktif";
+
+
+    $data = [
+        'contents' => [
+            [
+                'parts' => [
+                    ['text' => $prompt]
+                ]
+            ]
+        ],
+        'generationConfig' => [
+            'temperature' => 0.7,
+            'maxOutputTokens' => 150,
+        ]
+    ];
+
+    $options = [
+        'http' => [
+            'method' => 'POST',
+            'header' => 'Content-Type: application/json',
+            'content' => json_encode($data)
+        ]
+    ];
+
+    $context = stream_context_create($options);
+    $response = file_get_contents($url, false, $context);
+
+    if ($response === FALSE) {
+        return "Maaf, terjadi kesalahan saat menghasilkan rekomendasi.";
+    }
+
+    $result = json_decode($response, true);
+    return $result['candidates'][0]['content']['parts'][0]['text'];
+}
+
+
+
+function getGeminiWLBAspectInterpretations($satisfaction_percentage, $time_percentage, $involvement_percentage)
+{
+    $api_key = 'AIzaSyDxlbLcuzMcIqVeIFWk0qfd0PmDqGxmnvw'; // Ganti dengan API key Gemini Anda
+    $url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' . $api_key;
+
+    $prompt = "Berikan interpretasi (maksimal 100 kata) untuk masing-masing aspek work-life balance berikut:
+    1. Kepuasan (Satisfaction): {$satisfaction_percentage}%
+    2. Waktu (Time): {$time_percentage}%
+    3. Keterlibatan (Involvement): {$involvement_percentage}%
+
+    Format jawaban:
+    Kepuasan: [interpretasi]
+    Waktu: [interpretasi]
+    Keterlibatan: [interpretasi]";
+
+    $data = [
+        'contents' => [
+            [
+                'parts' => [
+                    ['text' => $prompt]
+                ]
+            ]
+        ],
+        'generationConfig' => [
+            'temperature' => 0.7,
+            'maxOutputTokens' => 200,
+        ]
+    ];
+
+    $options = [
+        'http' => [
+            'method' => 'POST',
+            'header' => 'Content-Type: application/json',
+            'content' => json_encode($data)
+        ]
+    ];
+
+    $context = stream_context_create($options);
+    $response = file_get_contents($url, false, $context);
+
+    if ($response === FALSE) {
+        return [
+            'Kepuasan' => 'Maaf, terjadi kesalahan saat menghasilkan interpretasi.',
+            'Waktu' => 'Maaf, terjadi kesalahan saat menghasilkan interpretasi.',
+            'Keterlibatan' => 'Maaf, terjadi kesalahan saat menghasilkan interpretasi.'
+        ];
+    }
+
+    $result = json_decode($response, true);
+    $content = $result['candidates'][0]['content']['parts'][0]['text'];
+
+    // Memisahkan interpretasi menjadi array
+    $interpretations = [
+        'Kepuasan' => '',
+        'Waktu' => '',
+        'Keterlibatan' => ''
+    ];
+
+    foreach (explode("\n", $content) as $line) {
+        $parts = explode(': ', $line, 2);
+        if (count($parts) == 2) {
+            $key = trim($parts[0]);
+            $value = trim($parts[1]);
+            if (array_key_exists($key, $interpretations)) {
+                $interpretations[$key] = $value;
+            }
+        }
+    }
+
+    return $interpretations;
+
+}
+
+function getGeminiRecommendations($satisfaction_percentage, $time_percentage, $involvement_percentage)
+{
+    $api_key = 'AIzaSyDxlbLcuzMcIqVeIFWk0qfd0PmDqGxmnvw'; // Ganti dengan API key Gemini Anda
+    $url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' . $api_key;
+
+    $prompt = "Berdasarkan hasil tes work-life balance:
+    Satisfaction: {$satisfaction_percentage}%
+    Time: {$time_percentage}%
+    Involvement: {$involvement_percentage}%
+
+    Berikan 10 saran untuk meningkatkan work-life balance. Setiap saran maksimal 15 kata dan harus spesifik serta actionable.
+
+    Format dan contoh jawaban:
+    1. [Luangkan waktu untuk melakukan aktivitas di luar pekerjaan, seperti berolahraga, berkumpul dengan keluarga, atau mengejar hobi]
+    2. [Prioritaskan tugas-tugas yang penting dan atur jadwal dengan baik]
+    3. [Hindari bekerja berlebihan dan berikan waktu untuk istirahat dan rekreasi]
+    4. [Karyawan harus berkomunikasi dengan atasan dan rekan kerja tentang kebutuhan pribadi mereka]
+    5. [Atur prioritas pekerjaan]
+    6. [Mengembangkan hobi baru]
+    7. [Berpartisipasi dalam kegiatan sosial]
+    8. [Mengatur waktu untuk relaksasi]
+    9. [Komunikasikan jika butuh bantuan]
+    10. [Hindari membawa pekerjaan ke rumah]";
+
+    $data = [
+        'contents' => [
+            [
+                'parts' => [
+                    ['text' => $prompt]
+                ]
+            ]
+        ],
+        'generationConfig' => [
+            'temperature' => 0.7,
+            'maxOutputTokens' => 150,
+        ]
+    ];
+
+    $options = [
+        'http' => [
+            'method' => 'POST',
+            'header' => 'Content-Type: application/json',
+            'content' => json_encode($data)
+        ]
+    ];
+
+    $context = stream_context_create($options);
+    $response = file_get_contents($url, false, $context);
+
+    if ($response === FALSE) {
+        return "Maaf, terjadi kesalahan saat menghasilkan rekomendasi.";
+    }
+
+    $result = json_decode($response, true);
+    return $result['candidates'][0]['content']['parts'][0]['text'];
+}
+
 
 include '../../database/db.php';
 
@@ -31,9 +279,15 @@ if ($result->num_rows > 0) {
     $satisfaction_percentage = ($total > 0) ? ($satisfaction_balance / $total) * 100 : 0;
     $time_percentage = ($total > 0) ? ($time_balance / $total) * 100 : 0;
     $involvement_percentage = ($total > 0) ? ($involvement_balance / $total) * 100 : 0;
+    $interpretations = getGeminiWLBAspectInterpretations($satisfaction_percentage, $time_percentage, $involvement_percentage);
+    $recommendations = getGeminiRecommendations($satisfaction_percentage, $time_percentage, $involvement_percentage);
+    $nickname = getGeminiNickname($satisfaction_percentage, $time_percentage, $involvement_percentage);
 } else {
     $satisfaction_percentage = $time_percentage = $involvement_percentage = 0;
 }
+
+
+
 
 // Query untuk mengambil nama user
 $queryNama = "SELECT username FROM users WHERE id_user = ?";
@@ -88,8 +342,8 @@ $conn->close();
     <div class="container-isi">
         <div class="row">
             <div class="col-md-6">
-                <h2 style="color: #D0434D">fdfkdklfk</h2>
-                <p>keterangan singkat</p>
+            <h2 style="color: #D0434D; text-align: center; margin-top: 115px;"><?php echo htmlspecialchars($nickname) ?></h2>
+                <!-- <p>keterangan singkat</p> -->
             </div>
             <div class="col-md-6">
                 <canvas id="resultChart"></canvas>
@@ -97,43 +351,61 @@ $conn->close();
         </div>
         <!-- satisfaction-balance -->
         <h4>Kepuasan (Satisfaction)</h4>
-        <p>Dengan presentase <?php echo $satisfaction_percentage ?>%, aspek menunjukan</p>
+        <p>Dengan persentase <?php echo round($satisfaction_percentage, 2); ?>%, aspek ini menunjukkan:
+            <?php echo htmlspecialchars($interpretations['Kepuasan']); ?>
+        </p>
         <br>
 
         <!-- time balance -->
         <h4>Waktu (Time)</h4>
-        <p>Dengan presentase <?php echo $time_percentage ?>%, aspek menunjukan</p>
+        <p>Dengan persentase <?php echo round($time_percentage, 2); ?>%, aspek ini menunjukkan:
+            <?php echo htmlspecialchars($interpretations['Waktu']); ?>
+        </p>
         <br>
 
         <!-- involvement-balance -->
         <h4>Keterlibatan (Involvement)</h4>
-        <p>Dengan presentase <?php echo $involvement_percentage ?>%, aspek menunjukan</p>
-        <br>
+        <p>Dengan persentase <?php echo round($involvement_percentage, 2); ?>%, aspek ini menunjukkan:
+            <?php echo htmlspecialchars($interpretations['Keterlibatan']); ?>
+        </p>
 
+        <br>
         <div class="garis"></div>
         <br>
-            <center>
-                <h4>Saran</h4>
-            </center>
-            <br>
-            <br>
-            <div class="row">
-                <div class="col-md-6 d-flex justify-content-center align-items-center">
-                    <img src="../../assets/images/tes.png" alt="" class="img-hasil"
-                        style="max-width: 80%; height: auto; width: 350px;">
-                </div>
-                <div class="col-md-6">
-                    <p>Saran disini.</p>
-                </div>
+        <center>
+            <h4>Saran</h4>
+        </center>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-md-6 d-flex justify-content-center align-items-center">
+                <img src="../../assets/images/tes.png" alt="" class="img-hasil"
+                    style="max-width: 80%; height: auto; width: 350px;">
             </div>
-        
-
+            <div class="col-md-6">
+                <?php
+                $recommendations_array = explode("\n", $recommendations);
+                echo "<ul>";
+                foreach ($recommendations_array as $recommendation) {
+                    $recommendation = trim($recommendation);
+                    if (!empty($recommendation) && strpos($recommendation, '.') !== false) {
+                        $recommendation = substr($recommendation, strpos($recommendation, '.') + 1);
+                        echo "<li>" . htmlspecialchars(trim($recommendation)) . "</li>";
+                    }
+                }
+                echo "</ul>";
+                ?>
+            </div>
+            <br>
+            <p>Semoga saran di atas membantu Anda mencapai keseimbangan yang lebih baik dan meningkatkan
+                kualitas hidup Anda secara keseluruhan. Selamat mencoba!!😊😊</p>
+        </div>
     </div>
 
     <!-- Image Below Container -->
     <div class="bottom-image">
         <img src="../../assets/images/hasil2.jpg" alt="2" class="img-fluid">
-        
+
     </div>
 
     <!-- Bootstrap 5 JavaScript -->
