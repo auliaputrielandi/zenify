@@ -64,64 +64,6 @@ function getGeminiNickname($satisfaction_percentage, $time_percentage, $involvem
     $result = json_decode($response, true);
     return $result['candidates'][0]['content']['parts'][0]['text'];
 }
-function getGemini($satisfaction_percentage, $time_percentage, $involvement_percentage)
-{
-    $api_key = 'AIzaSyDxlbLcuzMcIqVeIFWk0qfd0PmDqGxmnvw'; // Ganti dengan API key Gemini Anda
-    $url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' . $api_key;
-
-    $prompt = "Berdasarkan hasil tes work-life balance:
-    Satisfaction: {$satisfaction_percentage}%
-    Time: {$time_percentage}%
-    Involvement: {$involvement_percentage}%
-
-    Berikan 1 julukan yang positif, sesuai, bagus, dan unik.
-
-    Format dan contoh jawaban:
-    Si Pengatur Waktu Andal
-    Si Puas dan Berdedikasi
-    Si Produktif dan Berperan Aktif
-    Si Tepat Waktu dan Fokus
-    Si Efisien dan Berkontribusi Penuh
-    Si Harmonis dan Komitmen
-    Si Bahagia dalam Memberikan Kontribusi
-    Si Seimbang dalam Peran
-    Si Produktif";
-
-
-    $data = [
-        'contents' => [
-            [
-                'parts' => [
-                    ['text' => $prompt]
-                ]
-            ]
-        ],
-        'generationConfig' => [
-            'temperature' => 0.7,
-            'maxOutputTokens' => 150,
-        ]
-    ];
-
-    $options = [
-        'http' => [
-            'method' => 'POST',
-            'header' => 'Content-Type: application/json',
-            'content' => json_encode($data)
-        ]
-    ];
-
-    $context = stream_context_create($options);
-    $response = file_get_contents($url, false, $context);
-
-    if ($response === FALSE) {
-        return "Maaf, terjadi kesalahan saat menghasilkan rekomendasi.";
-    }
-
-    $result = json_decode($response, true);
-    return $result['candidates'][0]['content']['parts'][0]['text'];
-}
-
-
 
 function getGeminiWLBAspectInterpretations($satisfaction_percentage, $time_percentage, $involvement_percentage)
 {
