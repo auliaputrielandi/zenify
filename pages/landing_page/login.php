@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['id_user'] = $id;
 
             // Redirect ke halaman sebelumnya atau halaman default
-            $URL = isset($_SESSION['RedirectKe']) ? $_SESSION['RedirectKe'] : '../wlb/tes-wlb.php';
+            $URL = isset($_SESSION['RedirectKe']) ? $_SESSION['RedirectKe'] : '';
             unset($_SESSION['RedirectKe']); // Hapus setelah digunakan
             header('Location: ' . $URL);
             exit();

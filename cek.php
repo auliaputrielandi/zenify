@@ -1,68 +1,79 @@
 <?php
-// session_start();
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+session_start();
 
 if (!isset($_SESSION['id_user'])) {
     header("Location: login.php");
     exit();
 }
 
+function getOpenAIRecommendations($kategoriDepresi, $kategoriKecemasan, $kategoriStres)
+{
+    $api_key = 'sk-7lwNXKkZTffhHpnwBb3gGnpmT9Wvr2pkgiAaQYiU0qT3BlbkFJv0xqIPap1cBTG9o3Qkt3fBOmSi0QtftQJ2VlS0SFAA'; // Ganti dengan API key OpenAI Anda
+    $url = 'https://api.openai.com/v1/engines/davinci-codex/completions'; // Perbarui endpoint
 
-// function getGeminiRecommendations($kategoriDepresi, $kategoriKecemasan, $kategoriStres)
-// {
-//     $api_key = 'AIzaSyDxlbLcuzMcIqVeIFWk0qfd0PmDqGxmnvw'; // Ganti dengan API key Gemini Anda
-//     $url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro-latest:generateContent?key=' . $api_key;
+    $prompt = "Berdasarkan hasil tes DASS-21:
+    Depresi: {$kategoriDepresi}
+    Kecemasan: {$kategoriKecemasan}
+    Stres: {$kategoriStres}
 
-//     $prompt = "Berdasarkan hasil tes DASS-21:
-//     Depresi: {$kategoriDepresi}
-//     Kecemasan: {$kategoriKecemasan}
-//     Stres: {$kategoriStres}
+    Berikan 6 saran singkat untuk mengatasi Depresi, Kecemasan, dan Stres sesuai dengan hasil tingkat stres tadi. Setiap saran maksimal 15 kata dan harus spesifik, actionable, dan berdasarkan data yang valid. Berikan dengan kata-kata yang mudah dipahami oleh user.
 
-//     Berikan 6 saran singkat untuk mengatasi Depresi, Kecemasan, dan Stres sesuai dengan hasil tingkat stres tadi. Setiap saran maksimal 10 kata dan harus spesifik, actionable, berdasarkan data yang valid, dan kata-kata yang mudah dipahami oleh user.
+    Format jawaban:
+    1. [Saran 1]
+    2. [Saran 2]
+    3. [Saran 3]
+    4. [Saran 4]
+    5. [Saran 5]
+    6. [Saran 6]";
 
-//     Format jawaban:
-//     1. [Saran 1]
-//     2. [Saran 2]
-//     3. [Saran 3]
-//     4. [Saran 4]
-//     5. [Saran 5]
-//     6. [Saran 6]";
+    $data = [
+        'model' => 'text-davinci-003', // Ganti dengan model yang masih didukung
+        'prompt' => $prompt,
+        'max_tokens' => 150,
+        'temperature' => 0.7,
+    ];
 
-//     $data = [
-//         'contents' => [
-//             [
-//                 'parts' => [
-//                     ['text' => $prompt]
-//                 ]
-//             ]
-//         ],
-//         'generationConfig' => [
-//             'temperature' => 0.7,
-//             'maxOutputTokens' => 150,
-//         ]
-//     ];
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/json',
+        'Authorization: Bearer ' . $api_key,
+    ]);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
 
-//     $options = [
-//         'http' => [
-//             'method' => 'POST',
-//             'header' => 'Content-Type: application/json',
-//             'content' => json_encode($data)
-//         ]
-//     ];
+    $response = curl_exec($ch);
 
-//     $context = stream_context_create($options);
-//     $response = file_get_contents($url, false, $context);
+    if (curl_errno($ch)) {
+        $error_msg = curl_error($ch);
+        curl_close($ch);
+        return "Curl error: " . $error_msg;
+    }
 
-//     if ($response === FALSE) {
-//         return "Maaf, terjadi kesalahan saat menghasilkan rekomendasi.";
-//     }
+    $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
 
-//     $result = json_decode($response, true);
-//     return $result['candidates'][0]['content']['parts'][0]['text'];
-// }
+    if ($http_status != 200) {
+        return "HTTP error: " . $http_status . " - Response: " . $response;
+    }
 
+    $result = json_decode($response, true);
+
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        return "JSON decode error: " . json_last_error_msg();
+    }
+
+    // Debugging: Tampilkan respons mentah
+    // echo "<pre>";
+    // print_r($result);
+    // echo "</pre>";
+
+    if (isset($result['choices'][0]['text'])) {
+        return $result['choices'][0]['text'];
+    } else {
+        return "Maaf, tidak ada rekomendasi yang tersedia saat ini.";
+    }
+}
 
 include '../../database/db.php';
 
@@ -127,7 +138,7 @@ if ($result->num_rows > 0) {
     $kategoriDepresi = getKategoriDepresi($depresi);
     $kategoriKecemasan = getKategoriKecemasan($kecemasan);
     $kategoriStres = getKategoriStres($stres);
-    // $recommendations = getGeminiRecommendations($kategoriDepresi, $kategoriKecemasan, $kategoriStres);
+    $recommendations = getOpenAIRecommendations($kategoriDepresi, $kategoriKecemasan, $kategoriStres);
 
 } else {
     $depresi = $kecemasan = $stres = "Data tidak ditemukan";
@@ -166,12 +177,12 @@ $conn->close();
 
 </head>
 
-<body>
+<bo>
     <!-- Include Navbar -->
     <?php include '../landing_page/navbar.php'; ?>
 
     <!-- Main Content -->
-    <div class="hasil-stres">
+    <div class="container my-5">
         <div class="row align-items-center">
             <div class="col-md-6">
                 <h1>Hi <?php echo $nama; ?>!</h1>
@@ -179,9 +190,9 @@ $conn->close();
             </div>
         </div>
     </div>
-    <div class="hasil-stres-isi">
+    <div class="container-isi">
         <h2>Hasil Tes Anda</h2>
-        <div class="table-hasil-stres">
+        <div class="table-container">
             <table>
                 <thead>
                     <tr>
@@ -258,7 +269,7 @@ $conn->close();
             echo "<p>Stres ringan adalah stres yang tidak merusak aspek fisiologis. Stres ringan umumnya dirasakan oleh setiap orang misalnya lupa, ketiduran, dikritik, dan kemacetan. Stres ringan sering dialami pada kehidupan sehari-hari dan kondisi ini dapat membantu seseorang untuk waspada. Stres ringan tidak akan menimbulkan penyakit kecuali jika terjadi berkepanjangan.</p>";
         } elseif ($kategoriStres == "Sedang") {
             echo "<h4>Stres sedang</h4>";
-            echo "<p> stres sedang yaitu situasi yang tidak terselesaikan dengan rekan, keluarga yang sakit, atau ketidakhadiran yang lama dari anggota keluarga. Gejala stres sedang yaitu sakit perut, mules, otot-otot terasa tegang, perasaan tegang, gangguan tidur, dan badan terasa ringan.</p>";
+            echo "<p> Stres sedang yaitu situasi yang tidak terselesaikan dengan rekan, keluarga yang sakit, atau ketidakhadiran yang lama dari anggota keluarga. Gejala stres sedang yaitu sakit perut, mules, otot-otot terasa tegang, perasaan tegang, gangguan tidur, dan badan terasa ringan.</p>";
         } elseif ($kategoriStres == "Berat") {
             echo "<h4>Stres berat</h4>";
             echo "<p>Stres berat umumnya terjadi ketika seseorang mendapatkan tekanan yang berlebihan. Hal ini bisa dipicu oleh berbagai faktor, seperti masalah keluarga, kehilangan orang terkasih, beban pekerjaan, atau menderita penyakit kronis tertentu. Secara umum, stres berat dapat menimbulkan gejala tertentu, seperti sulit tidur, mudah marah, kelelahan, perubahan nafsu makan, mudah sakit, sulit berkonsentrasi, peningkatan detak jantung, berkeringat berlebihan.</p>";
@@ -278,90 +289,28 @@ $conn->close();
         <div class="row">
             <!-- Kolom untuk gambar -->
             <div class="col-md-6 d-flex justify-content-center align-items-center">
-                <img src="../../assets/images/tes.png" alt="" class="img-hasil"
-                    style="max-width: 80%; height: auto; width: 350px;">
+                <img src="../../assets/images/tes.png" alt="Hasil Tes" class="img-hasil"
+                    style="max-width: 100%; height: auto; width: 100%; max-width: 350px;">
             </div>
 
             <!-- Kolom untuk rekomendasi -->
             <div class="col-md-6">
-                <div class="recommendations-hasil-stres" style="padding: 15px;">
+                <div class="recommendations-container" style="padding: 15px;">
                     <?php
-                    if ($kategoriDepresi == "Normal") {
+                    if (!empty($recommendations)) {
+                        $recommendations_array = explode("\n", $recommendations);
                         echo "<ul style='list-style-type: disc; padding-left: 20px;'>";
-                            echo "<li>Berbicaralah dengan teman, keluarga, atau orang yanga anda percayai.</li>";
-                            echo "<li>Terlibat dalam aktivitas fisik seperti berjalan kaki, bersepeda atau berolahraga ringan.</li>";
-                        } elseif ($kategoriDepresi == "Ringan") {
-                            echo "<li>Berbicaralah dengan teman, keluarga, atau orang yang anda percayai.</li>";
-                            echo "<li>Praktikan teknik relaksasi, seperti meditasi atau yoga.</li>";
-                            echo "<li>Terlibat dalam aktivitas fisik seperti berjalan kaki, bersepeda atau berolahraga ringan.</li>";
-                        } elseif ($kategoriDepresi == "Sedang") {
-                            echo "<li>Konsultasikan dengan profesional kesehatan mental untuk terapi kognitif perilaku (CBT) atau terapi lainnya.</li>";
-                            echo "<li>Pertimbangkan penggunaan obat antidepresan, yang harus diresepkan oleh dokter.</li>";
-                        } elseif ($kategoriDepresi == "Berat") {
-                            echo "<li>Konsultasikan dengan profesional kesehatan mental untuk terapi kognitif perilaku (CBT) atau terapi lainnya.</li>";
-                            echo "<li></li>";
-                        } elseif ($kategoriDepresi == "Sangat Berat") {
-                            echo "<li>Perawatan segera, hubungi layanan darurat atau konsultasikan konsultasikan dengan profesional kesehatan mental.</li>";
-                            echo "<li>Terapi obat, dan dukungan sosial sangat penting.</li>";
+                        foreach ($recommendations_array as $recommendation) {
+                            $recommendation = trim($recommendation);
+                            if (!empty($recommendation) && strpos($recommendation, '.') !== false) {
+                                $recommendation = substr($recommendation, strpos($recommendation, '.') + 1);
+                                echo "<li>" . htmlspecialchars(trim($recommendation)) . "</li>";
+                            }
                         }
                         echo "</ul>";
-                        
-                    if ($kategoriKecemasan == "Normal") {
-                        echo "<ul style='list-style-type: disc; padding-left: 20px;'>";
-                            echo "<li></li>";
-                            echo "<li></li>";
-                        } elseif ($kategoriKecemasan == "Ringan") {
-                            echo "<li></li>";
-                            echo "<li></li>";
-                            echo "<li></li>";
-                        } elseif ($kategoriKecemasan == "Sedang") {
-                            echo "<li></li>";
-                            echo "<li></li>";
-                        } elseif ($kategoriKecemasan == "Berat") {
-                            echo "<li></li>";
-                            echo "<li></li>";
-                        } elseif ($kategoriKecemasan == "Sangat Berat") {
-                            echo "<li></li>";
-                            echo "<li></li>";
-                        }
-                        echo "</ul>";
-
-                    if ($kategoriStres == "Normal") {
-                        echo "<ul style='list-style-type: disc; padding-left: 20px;'>";
-                            echo "<li></li>";
-                            echo "<li></li>";
-                        } elseif ($kategoriStres == "Ringan") {
-                            echo "<li></li>";
-                            echo "<li></li>";
-                            echo "<li></li>";
-                        } elseif ($kategoriStres == "Sedang") {
-                            echo "<li></li>";
-                            echo "<li></li>";
-                        } elseif ($kategoriStres == "Berat") {
-                            echo "<li></li>";
-                            echo "<li></li>";
-                        } elseif ($kategoriStres == "Sangat Berat") {
-                            echo "<li></li>";
-                            echo "<li></li>";
-                        }
-                        echo "</ul>";
-                            
-                                
-                    ?>
-
-
-                    <!-- manggil saran dari AI -->
-                    <?php
-                    // $recommendations_array = explode("\n", $recommendations);
-                    // echo "<ul style='list-style-type: disc; padding-left: 20px;'>";
-                    // foreach ($recommendations_array as $recommendation) {
-                    //     $recommendation = trim($recommendation);
-                    //     if (!empty($recommendation) && strpos($recommendation, '.') !== false) {
-                    //         $recommendation = substr($recommendation, strpos($recommendation, '.') + 1);
-                    //         echo "<li>" . htmlspecialchars(trim($recommendation)) . "</li>";
-                    //     }
-                    // }
-                    // echo "</ul>";
+                    } else {
+                        echo "Tidak ada rekomendasi yang tersedia.";
+                    }
                     ?>
                 </div>
                 <p>Semoga saran di atas membantu Anda. Penting untuk diingat bahwa tes ini hanya sebagai panduan awal.
@@ -377,11 +326,11 @@ $conn->close();
 
     <!-- Image Below Container -->
     <div class="bottom-image">
-        <img src="../../assets/images/hasil2.jpg" alt="2" class="img-fluid">
+        <img src="../../assets/images/hasil2.png" alt="2" class="img-fluid">
     </div>
 
     <!-- Bootstrap 5 JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    </body>
 
 </html>

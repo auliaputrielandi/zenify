@@ -1,6 +1,10 @@
 <?php
 require __DIR__ . '/../../database/db.php';
-session_start();
+
+// Check if a session is already active before calling session_start()
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 $is_logged_in = isset($_SESSION['id_user']);
 $username = '';
@@ -42,15 +46,6 @@ if ($is_logged_in) {
         }
         .btn-danger {
             font-size: 1rem;
-        }
-        @media (max-width: 576px) {
-            .navbar-brand {
-                font-size: 1.25rem;
-            }
-            .nav-item .nav-link,
-            .btn-danger {
-                font-size: 0.875rem;
-            }
         }
         .navbar-nav .nav-item {
             display: flex;
@@ -104,7 +99,7 @@ if ($is_logged_in) {
                 <ul class="navbar-nav ms-auto">
                     <?php if ($is_logged_in): ?>
                         <li class="nav-item d-flex align-items-center">
-                            <a class="nav-link me-2" href="profil.php">Hi <?php echo htmlspecialchars($username); ?></a>
+                            <a class="nav-link me-2" href="profil.php"><?php echo htmlspecialchars($username); ?></a>
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                 data-bs-target="#logoutModal">
@@ -132,7 +127,6 @@ if ($is_logged_in) {
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                     <a class="btn btn-danger" href="../landing_page/logout.php">Logout</a>
-                    <!-- <a href="pages/landing_page/logout.php" class="btn btn-danger">Logout</a> -->
                 </div>
             </div>
         </div>
@@ -142,4 +136,3 @@ if ($is_logged_in) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-

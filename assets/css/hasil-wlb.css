@@ -5,6 +5,7 @@ body {
   background-image: url("../images/hasil1.jpg");
   background-size: cover;
   background-repeat: no-repeat;
+  background-attachment: scroll;
   background-position: center;
   min-height: 100vh;
   position: relative;
@@ -12,14 +13,15 @@ body {
 }
 
 .container {
-  max-width: 100%;
-  padding: 2rem;
+  max-width: 90%;
+  padding: 1rem;
+  margin: 0 auto;
   text-align: center;
 }
 
 .container h1 {
   color: #fff;
-  font-size: 2.5rem;
+  font-size: 1.5rem; /* Adjusted to be more responsive */
   font-weight: bold;
   margin-bottom: 1rem;
   text-align: left;
@@ -27,25 +29,25 @@ body {
 
 .container p {
   color: #fff;
-  font-size: 1rem;
+  font-size: 0.9rem; /* Adjusted to be more responsive */
   line-height: 1.6;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   text-align: left;
 }
 
 .container-isi {
-  max-width: 90%;
+  max-width: 100%;
   margin: 0 auto;
   background-color: #fffafa;
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .container-isi h2 {
-  font-size: 1.8rem;
+  font-size: 1.3rem; /* Adjusted to be more responsive */
   font-weight: bold;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   color: #333;
 }
 
@@ -55,16 +57,16 @@ body {
 }
 
 #resultChart {
-  width: 80%;
+  width: 100%;
   max-width: 350px;
   height: auto;
   margin: 1.5rem auto;
 }
 
 .img-hasil {
-  width: 60%;
+  width: 100%;
+  max-width: 400px;
   height: auto;
-  max-width: 500px;
   margin: 1.5rem auto;
 }
 
@@ -74,21 +76,26 @@ body {
 }
 
 @media (min-width: 768px) {
+  .container {
+    max-width: 85%;
+    padding: 2rem;
+  }
+
   .container h1 {
-    font-size: 3rem;
+    font-size: 2rem; /* Adjusted for medium screens */
   }
 
   .container p {
-    font-size: 1.2rem;
+    font-size: 1.1rem; /* Adjusted for medium screens */
   }
 
   .container-isi {
-    max-width: 80%;
+    max-width: 90%;
     padding: 2.5rem;
   }
 
   .container-isi h2 {
-    font-size: 2rem;
+    font-size: 1.6rem; /* Adjusted for medium screens */
   }
 
   #resultChart {
@@ -96,17 +103,22 @@ body {
   }
 
   .img-hasil {
-    width: 50%;
+    width: 80%;
   }
 }
 
 @media (min-width: 992px) {
+  .container {
+    max-width: 80%;
+    padding: 2.5rem;
+  }
+
   .container h1 {
-    font-size: 3.3rem;
+    font-size: 2.5rem; /* Adjusted for large screens */
   }
 
   .container p {
-    font-size: 1.3rem;
+    font-size: 1.2rem; /* Adjusted for large screens */
   }
 
   .container-isi {
@@ -115,7 +127,7 @@ body {
   }
 
   .container-isi h2 {
-    font-size: 2.2rem;
+    font-size: 1.8rem; /* Adjusted for large screens */
   }
 
   #resultChart {
@@ -123,6 +135,6 @@ body {
   }
 
   .img-hasil {
-    width: 40%;
+    width: 60%;
   }
 }

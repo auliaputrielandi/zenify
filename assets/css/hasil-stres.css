@@ -11,13 +11,13 @@ body {
   overflow-x: hidden;
 }
 
-.container {
+.hasil-stres {
   max-width: 100%;
   padding: 2rem;
   text-align: center;
 }
 
-.container h1 {
+.hasil-stres h1 {
   color: #fff;
   font-size: 2.5rem;
   font-weight: bold;
@@ -25,7 +25,7 @@ body {
   text-align: left;
 }
 
-.container p {
+.hasil-stres p {
   color: #fff;
   font-size: 1rem;
   line-height: 1.6;
@@ -33,7 +33,7 @@ body {
   text-align: left;
 }
 
-.container-isi {
+.hasil-stres-isi {
   max-width: 90%;
   margin: 0 auto;
   background-color: #fffafa;
@@ -42,14 +42,14 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
-.container-isi h2 {
+.hasil-stres-isi h2 {
   font-size: 1.8rem;
   font-weight: bold;
   margin-bottom: 1.5rem;
   color: #333;
 }
 
-.table-container {
+.table-hasil-stres {
   overflow-x: auto;
   margin-top: 1.5rem;
 }
@@ -88,23 +88,26 @@ td {
   margin: 2rem 0;
 }
 
-
+.bottom-image {
+  text-align: center;
+  margin-top: 2rem;
+}
 
 @media (min-width: 768px) {
-  .container h1 {
+  .hasil-stres h1 {
     font-size: 3rem;
   }
 
-  .container p {
+  .hasil-stres p {
     font-size: 1.2rem;
   }
 
-  .container-isi {
+  .hasil-stres-isi {
     max-width: 80%;
     padding: 2.5rem;
   }
 
-  .container-isi h2 {
+  .hasil-stres-isi h2 {
     font-size: 2.2rem;
   }
 
@@ -118,20 +121,20 @@ td {
 }
 
 @media (min-width: 992px) {
-  .container h1 {
+  .hasil-stres h1 {
     font-size: 3.3rem;
   }
 
-  .container p {
+  .hasil-stres p {
     font-size: 1.3rem;
   }
 
-  .container-isi {
+  .hasil-stres-isi {
     max-width: 70%;
     padding: 3rem;
   }
 
-  .container-isi h2 {
+  .hasil-stres-isi h2 {
     font-size: 2.5rem;
   }
 

@@ -61,7 +61,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="signup-container">
         <h2>Signup</h2>
         <form action="" method="POST">
-            <!-- <input type="text" name="email" placeholder="Email" required><br><br> -->
             <input type="text" name="email" placeholder="Email" required><br><br>
             <input type="text" name="username" placeholder="Username" required><br><br>
             <input type="password" name="password" placeholder="Create Password" required><br><br>
